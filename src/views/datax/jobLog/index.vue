@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.jobId" placeholder="全部" style="width: 200px" />
+      <el-input v-model="listQuery.jobId" placeholder="任务ID" style="width: 200px" />      
       <el-select v-model="listQuery.jobGroup" placeholder="执行器">
         <el-option v-for="item in executorList" :key="item.id" :label="item.title" :value="item.id" />
       </el-select>
@@ -252,9 +252,14 @@ export default {
     getExecutor() {
       job.getExecutorList().then(response => {
         const { content } = response
-        this.executorList = content
+        //this.executorList = content
+        this.executorList = []
         const defaultParam = { id: 0, title: '全部' }
         this.executorList.unshift(defaultParam)
+        this.executorList.push({id:1,title:'ods'})
+        this.executorList.push({id:2,title:'dim'})
+        this.executorList.push({id:3,title:'dwd'})
+        this.executorList.push({id:4,title:'dws'})
         this.listQuery.jobGroup = this.executorList[0].id
       })
     },

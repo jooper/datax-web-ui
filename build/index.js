@@ -11,6 +11,7 @@ if (process.env.npm_config_preview || rawArgv.includes('--preview')) {
 
   const port = 9526
   const publicPath = config.publicPath
+  const host="192.168.8.88"
 
   var connect = require('connect')
   var serveStatic = require('serve-static')
@@ -24,9 +25,9 @@ if (process.env.npm_config_preview || rawArgv.includes('--preview')) {
   )
 
   app.listen(port, function () {
-    console.log(chalk.green(`> Preview at  http://localhost:${port}${publicPath}`))
+    console.log(chalk.green(`> Preview at  http://${host}:${port}${publicPath}`))
     if (report) {
-      console.log(chalk.green(`> Report at  http://localhost:${port}${publicPath}report.html`))
+      console.log(chalk.green(`> Report at  http://${host}:${port}${publicPath}report.html`))
     }
 
   })

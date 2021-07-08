@@ -90,6 +90,9 @@
       <el-table-column label="执行状态" align="center" width="80">
         <template slot-scope="scope"> {{ statusList.find(t => t.value === scope.row.lastHandleCode).label }}</template>
       </el-table-column>
+      <el-table-column label="调度时间" align="center" width="180">
+        <template slot-scope="scope"> {{scope.row.incStartTime}}</template>
+      </el-table-column>
       <el-table-column label="操作" align="center" fixed="right">
         <template slot-scope="{row}">
           <!-- <el-dropdown type="primary" size="small"> -->
