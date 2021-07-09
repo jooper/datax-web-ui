@@ -12,6 +12,9 @@ const name = defaultSettings.title || 'DATAX-ADMIN' // page title
 // For example, Mac: sudo npm run
 const port = 8082 // dev port
 const apiPort = 9527
+// const host="localhost"
+const host="192.168.8.88"
+// const host="10.158.5.83"
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -22,7 +25,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: './',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -38,7 +41,7 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       //代理 /dev-api/api 到 http://localhost:8066/api
       [process.env.VUE_APP_API]: {
-        target: `http://192.168.8.88:${apiPort}/api`,
+        target: `http://${host}:${apiPort}/api`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_API]: ''
@@ -47,7 +50,7 @@ module.exports = {
       // mock 的代理
       // change xxx-api/login => mock/login
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://192.168.8.88:${port}/mock`,
+        target: `http://${host}:${port}/mock`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
@@ -59,6 +62,17 @@ module.exports = {
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
+    performance: {
+      hints:'warning',
+      //入口起点的最大体积
+      maxEntrypointSize: 50000000,
+      //生成文件的最大体积
+      maxAssetSize: 30000000,
+      //只给出 js 文件的性能提示
+      assetFilter: function(assetFilename) {
+          return assetFilename.endsWith('.js');
+      }
+    },
     name: name,
     resolve: {
       alias: {
